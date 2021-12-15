@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.util.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
+//Quitar carpeta web_inf si no carga el navegador 
 
 @WebServlet("/CarritoServlet")
 public class CarritoServlet extends HttpServlet {
