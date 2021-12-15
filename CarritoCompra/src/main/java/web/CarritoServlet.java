@@ -9,37 +9,38 @@ import javax.servlet.http.*;
 
 @WebServlet("/CarritoServlet")
 public class CarritoServlet extends HttpServlet {
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException{
-        
+            throws IOException {
+
         //Recuperamos la sesion
-        HttpSession sesion = request.getSession();
-        
+        HttpSession sesion = request.getSession(); //Solicitud del cliente
+
         //Recuperamos la lista de los articulos que previamente haya creado el cliente
-        
         List<String> articulos = (List<String>) sesion.getAttribute("articulos");
-        
-        if (articulos == null){
+
+        if (articulos == null) {
             //No hemos agregado ningun articulo
             articulos = new ArrayList<>();
             sesion.setAttribute("articulos", articulos);
+            /*Si es la primera sesion
+            se crea el atributo articulos con el vamor articulos*/
         }
-        
+
         String articuloNuevo = request.getParameter("articulo");
-        
+
         //Vamos a comprobar el valor de nuestro articulo y lo agregamos
         if (articuloNuevo != null && !articuloNuevo.trim().equals("")) {
             articulos.add(articuloNuevo);
-            
+
         }
         response.setContentType("text/html;charset=UTF-8");
         //Mostramos nuestro carrito de compra en cada solicitud
         PrintWriter out = response.getWriter();
         out.print("<h1>Lista de la compra:</h1>");
         for (String articulo : articulos) {
-            out.print("<li>"+articulo+"</li>");
+            out.print("<li>" + articulo + "</li>");
         }
         out.print("<br>");
         out.print("<a href='/CarritoCompra'>Inicio</a>");
